@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.minegocio.controllerVista.VistaPosController">
+   <children>
+      <Label layoutX="173.0" layoutY="106.0" prefHeight="72.0" prefWidth="182.0" text="VENTAS" />
+   </children>
+</AnchorPane>
