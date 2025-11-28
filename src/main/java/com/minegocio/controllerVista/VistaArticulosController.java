@@ -35,6 +35,7 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
     private List<Departamento> departamentos;//variable de datoscompartidos
     private List<Familia> familias;
     private List<Rubro> rubros;
+    private List<Marca> marcas;
     @FXML
     private TableView<Articulo> TablaArticulos;
     @FXML
@@ -45,6 +46,8 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
     private TextField txtDescripcion;
     @FXML
     private TextField txtMarca;
+    @FXML
+    private TextField txtCodMarca;
     @FXML
     private TextField  txtCodigo;
     @FXML
@@ -99,8 +102,9 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
 
     public void cargarDetalles(Articulo a) {
         txtDescripcion.setText(String.valueOf(a.getDescripcion()));
-        txtMarca.setText(String.valueOf(a.getMarca()));
-        txtCodigo.setText(String.valueOf(a.getCodigo()));
+        txtMarca.setText(String.valueOf(marcas.get(a.getMarca()-1).getDescripcion()));
+        txtCodMarca.setText(String.valueOf(marcas.get(a.getMarca()-1).getCodMarca()));
+        txtCodigo.setText(String.valueOf(a.getCodigo()));        
         txtCodigoBarra.setText(String.valueOf(a.getCodigoBarra()));
         txtDepartamento.setText(String.valueOf( departamentos.get(a.getCodDepartamento()-1).getDescripcion()));
         txtFamilia.setText(String.valueOf(familias.get(a.getCodFamilia()-1).getDescripcion()));
@@ -113,11 +117,11 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
     }
 
     @Override
-    public void setDatos(List<Departamento> departamentos, List<Familia> familias, List<Rubro> rubros) {
+    public void setDatos(List<Departamento> departamentos, List<Familia> familias, List<Rubro> rubros, List<Marca> marcas) {
         this.departamentos = departamentos;
         this.familias = familias;
         this.rubros = rubros;
-        
+        this.marcas = marcas;
     }
 
 }

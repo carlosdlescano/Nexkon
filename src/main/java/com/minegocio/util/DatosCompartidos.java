@@ -13,7 +13,7 @@ import java.util.List;
  * @author miNegocio
  */
 public interface DatosCompartidos {
-    void setDatos(List<Departamento> departamentos, List<Familia> familias, List<Rubro> rubros);
+    void setDatos(List<Departamento> departamentos, List<Familia> familias, List<Rubro> rubros, List<Marca> marcas);
                   //List<Estado> estados);
     
 }

@@ -28,7 +28,7 @@ public class MarcaDAOImpl implements MarcaDAO {
         /**/
         try {
             con = Conexion.getConexion();
-            stmt = con.prepareCall("{call spBuscarPaginadoFamilia}");//crear
+            stmt = con.prepareCall("{call spBuscarPaginadoMarca}");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Marca mar = new Marca();

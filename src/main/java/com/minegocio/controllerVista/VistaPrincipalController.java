@@ -30,6 +30,7 @@ public class VistaPrincipalController implements Initializable {
     private List<Departamento> listaDepartamentos;
     private List<Familia> listaFamilias;
     private List<Rubro> listaRubros;
+    private List<Marca> listaMarca;
   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -40,6 +41,8 @@ public class VistaPrincipalController implements Initializable {
         listaFamilias = fam.ListarTodos();
         RubroDAO rub = new RubroDAOImpl();
         listaRubros = rub.ListarTodos();
+        MarcaDAO mar = new MarcaDAOImpl();
+        listaMarca = mar.ListarTodos();
         
     }
     @FXML
@@ -55,7 +58,7 @@ public class VistaPrincipalController implements Initializable {
         // Si el controlador implementa la interfaz, le paso las listas
         if (controller instanceof DatosCompartidos) {
               DatosCompartidos ctrl = (DatosCompartidos) controller;
-             ctrl.setDatos(listaDepartamentos,listaFamilias, listaRubros);
+             ctrl.setDatos(listaDepartamentos,listaFamilias, listaRubros, listaMarca);
          }
             ContenedorCentral.getChildren().setAll(nuevaVista);
         } catch (IOException e) {
