@@ -4,9 +4,10 @@
  */
 package com.minegocio.controllerVista;
 
-import com.minegocio.DAO.ArticuloDAO;
-import com.minegocio.DaoImpl.ArticuloDAOImpl;
-import com.minegocio.model.Articulo;
+import com.minegocio.DAO.*;
+import com.minegocio.DaoImpl.*;
+import com.minegocio.model.*;
+import com.minegocio.util.DatosCompartidos;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -29,14 +30,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class VistaArticulosController implements Initializable {
+public class VistaArticulosController implements Initializable, DatosCompartidos {
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
+    private List<Departamento> departamentos;//variable de datoscompartidos
+    private List<Familia> familias;
+    private List<Rubro> rubros;
     @FXML
     private TableView<Articulo> TablaArticulos;
     @FXML
@@ -104,13 +102,21 @@ public class VistaArticulosController implements Initializable {
         txtMarca.setText(String.valueOf(a.getMarca()));
         txtCodigo.setText(String.valueOf(a.getCodigo()));
         txtCodigoBarra.setText(String.valueOf(a.getCodigoBarra()));
-        txtDepartamento.setText(String.valueOf(a.getCodDepartamento()));
-        txtFamilia.setText(String.valueOf(a.getCodFamilia()));;
+        txtDepartamento.setText(String.valueOf( departamentos.get(a.getCodDepartamento()-1).getDescripcion()));
+        txtFamilia.setText(String.valueOf(familias.get(a.getCodFamilia()-1).getDescripcion()));
         txtMargen.setText(String.valueOf(a.getMargen()));
         txtPrecioActual.setText(String.valueOf(a.getPrecioVenta()));
         txtPrecioCosto.setText(String.valueOf(a.getPrecioCosto()));
-        txtRubro.setText(String.valueOf(a.getCodRubro()));
+        txtRubro.setText(String.valueOf(rubros.get(a.getCodRubro()-1).getDescripcion()));
         txtStock.setText(String.valueOf(a.getStock()));
+        
+    }
+
+    @Override
+    public void setDatos(List<Departamento> departamentos, List<Familia> familias, List<Rubro> rubros) {
+        this.departamentos = departamentos;
+        this.familias = familias;
+        this.rubros = rubros;
         
     }
 

@@ -10,7 +10,7 @@ package com.minegocio.model;
  */
 public class Familia {
     private int codFamilia;
-    private Rubro codRubro;
+    private int codRubro;
     private String descripcion;
 
     public Familia() {
@@ -24,11 +24,11 @@ public class Familia {
         this.codFamilia = codFamilia;
     }
 
-    public Rubro getCodRubro() {
+    public int getCodRubro() {
         return codRubro;
     }
 
-    public void setCodRubro(Rubro codRubro) {
+    public void setCodRubro(int codRubro) {
         this.codRubro = codRubro;
     }
 

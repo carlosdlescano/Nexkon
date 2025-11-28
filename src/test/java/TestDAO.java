@@ -2,21 +2,34 @@
 import com.minegocio.DAO.ArticuloDAO;
 import com.minegocio.DaoImpl.ArticuloDAOImpl;
 import com.minegocio.model.Articulo;
+import com.minegocio.util.Conexion;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author POS
  */
 public class TestDAO {
+
     public static void main(String[] args) {
 
+        /*//Prueba de conexion
+        Connection con = Conexion.getConexion();
+
+        if (con != null) {
+            System.out.println("Conexión exitosa!");
+        } else {
+            System.out.println("****Fallo la conexion.****");
+        }*/
+
+        /* //Prueba listar Articulos
         ArticuloDAO dao = new ArticuloDAOImpl();
+        
         int cont = 0;
         // Ejecutar búsqueda
         ArrayList<Articulo> resultados = (ArrayList<Articulo>) dao.listarTodos();
@@ -41,7 +54,7 @@ public class TestDAO {
                 System.out.println("-----------------------------");
             }
         }
-        System.out.println("La cantidad de articulo es: "+ cont);
+        System.out.println("La cantidad de articulo es: "+ cont);*/
     }
-    
+
 }

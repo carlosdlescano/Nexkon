@@ -43,14 +43,6 @@
         <plugins>
 
             <!-- Compilador Java moderno -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <release>23</release>
-                </configuration>
-            </plugin>
 
             <!-- Plugin JavaFX actual -->
             <plugin>
@@ -68,7 +60,17 @@
                     <mainClass>com.minegocio.minegocio2.App</mainClass>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>24</release>
+                    <compilerArgs>
+                        <arg>--enable-preview</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

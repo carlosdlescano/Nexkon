@@ -10,8 +10,8 @@ package com.minegocio.model;
  */
 public class Rubro {
     private int codRubro;
-    private Departamento codDepartamento;
-    String descripcion;
+    private int codDepartamento;
+    private String descripcion;
 
     public Rubro() {
     }
@@ -24,11 +24,11 @@ public class Rubro {
         this.codRubro = codRubro;
     }
 
-    public Departamento getCodDepartamento() {
+    public int getCodDepartamento() {
         return codDepartamento;
     }
 
-    public void setCodDepartamento(Departamento codDepartamento) {
+    public void setCodDepartamento(int codDepartamento) {
         this.codDepartamento = codDepartamento;
     }
 

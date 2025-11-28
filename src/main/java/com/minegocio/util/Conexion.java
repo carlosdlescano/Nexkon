@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class Conexion {
     private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=TiendaDB; encrypt=true;trustServerCertificate=true;"; //encrypt=true;trustServerCertificate=true; desactiva la validacion de certificado
     private static final String USUARIO = "sa"; 
-    private static final String CLAVE = "dlrpos";
+    private static final String CLAVE = "NexKon";
 
     public static Connection getConexion() {
         Connection con = null;
