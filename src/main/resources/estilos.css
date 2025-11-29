@@ -1,0 +1,104 @@
+/* Fuente y colores base */
+.root {
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+    -fx-background-color: #F5F6FA; /* fondo claro */
+}
+
+/* Clase para contenedores */
+.contenedor {
+    -fx-background-color: #E8F5E9; /* verde claro */
+    
+}
+/* Estilo para ChoiceBox deshabilitado */
+.choice-box:disabled {
+    -fx-opacity: 1; /* Hace que no cambie la opacidad */
+    -fx-background-color: white; /* Mantiene el color de fondo igual */
+    -fx-text-fill: black; /* Mantiene el color del texto igual */
+    -fx-border-color: #ccc; /* Mantiene el borde igual */
+}
+
+
+/* Estilo para TextField deshabilitado */
+.text-field:disabled {
+    -fx-opacity: 1; /* Hace que no cambie la opacidad */
+    -fx-background-color: white; /* Mantiene el color de fondo igual */
+    -fx-text-fill: black; /* Mantiene el color del texto igual */
+    -fx-border-color: #ccc; /* Mantiene el borde igual */
+}
+
+
+/* Encabezados */
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50; /* gris oscuro */
+    
+}
+
+/* Texto normal */
+.label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #34495E;
+}
+
+/* Botones principales */
+.button {
+    -fx-background-color: #4CAF50; /* verde NexKon */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    
+}
+
+.button:hover {
+    -fx-background-color: #45A049; /* verde más oscuro al pasar el mouse */
+}
+
+/* Botones secundarios */
+.button-secondary {
+    -fx-background-color: #E0E0E0;
+    -fx-text-fill: #2C3E50;
+    
+}
+
+.button-secondary:hover {
+    -fx-background-color: #D5D5D5;
+}
+
+/* Campos de texto */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #BDC3C7;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+
+}
+
+.text-field:focused {
+    -fx-border-color: #4CAF50; /* verde al enfocar */
+}
+
+/* Tablas */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+}
+
+.table-view .column-header {
+    -fx-background-color: #F0F0F0;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+}
+
+/* Barra lateral */
+.sidebar {
+    -fx-background-color: #2C3E50; /* gris oscuro */
+}
+
+.sidebar .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ECF0F1;
+}
+
+.sidebar .button:hover {
+    -fx-background-color: #34495E;
+}

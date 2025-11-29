@@ -3,6 +3,7 @@ module com.minegocio.minegocio2 {
     requires javafx.fxml;
     requires java.sql;
     requires com.microsoft.sqlserver.jdbc;
+    requires java.base;
 
     // Tu clase App está acá
     opens com.minegocio.minegocio2 to javafx.fxml;

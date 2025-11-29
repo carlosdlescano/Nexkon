@@ -89,10 +89,17 @@ public class ArticuloDAOImpl implements ArticuloDAO {
             stmt.setDouble(10, art.getMargen());
             stmt.setDouble(11, art.getPrecioVenta());
             stmt.setLong(12, art.getCodigoBarra());
-
-            int filasActualizadas = stmt.executeUpdate();
-            System.out.println("Filas actualizadas: " + filasActualizadas);
-            exito = filasActualizadas > 0;
+            
+            boolean tieneResultado = stmt.execute();
+            
+            if (tieneResultado) {
+            ResultSet rs = stmt.getResultSet();
+            if (rs.next()) {
+                String mensaje = rs.getString(1);
+                System.out.println("Mensaje SP: " + mensaje);
+                exito = mensaje.equalsIgnoreCase("OK");
+            }
+        }
 
             
         } catch (SQLException e) {
@@ -176,6 +183,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Articulo art = new Articulo();
+                art.setIdCodArticulo(rs.getInt("idCodigo"));
                 art.setCodigo(rs.getInt("codigo"));
                 art.setMarca(rs.getInt("marca"));
                 art.setDescripcion(rs.getString("descripcion"));

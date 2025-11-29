@@ -40,6 +40,12 @@ public class Rubro {
         this.descripcion = descripcion;
     }
 
+    @Override
+    public String toString() {
+        return descripcion;
+    }
+
+    
     
     
 }

@@ -42,9 +42,9 @@ public class Articulo {
     private double margen;
     private double precioVenta;
     private int estado;
-    private Long codigoBarra;
+    private long codigoBarra;
 
-    public Articulo(int codigo, int marca, int departamento, int rubro, int familia, String descipcion, int stock, double precioCosto, double margen, double precioVenta, int estado, Long codigoBarra) {
+    public Articulo(int codigo, int marca, int departamento, int rubro, int familia, String descipcion, int stock, double precioCosto, double margen, double precioVenta, int estado, long codigoBarra) {
         this.codigo = codigo;
         this.marca = marca;
         this.codDepartamento = departamento;
@@ -159,13 +159,20 @@ public class Articulo {
         this.estado = estado;
     }
 
-    public Long getCodigoBarra() {
+    public long getCodigoBarra() {
         return codigoBarra;
     }
 
-    public void setCodigoBarra(Long codigoBarra) {
+    public void setCodigoBarra(long codigoBarra) {
         this.codigoBarra = codigoBarra;
     }
+
+    @Override
+    public String toString() {
+        return "Articulo{" + "idCodArticulo=" + idCodArticulo + ", codigo=" + codigo + ", marca=" + marca + ", codDepartamento=" + codDepartamento + ", codRubro=" + codRubro + ", codFamilia=" + codFamilia + ", descripcion=" + descripcion + ", stock=" + stock + ", precioCosto=" + precioCosto + ", margen=" + margen + ", precioVenta=" + precioVenta + ", estado=" + estado + ", codigoBarra=" + codigoBarra + '}';
+    }
+    
+    
 
    
     

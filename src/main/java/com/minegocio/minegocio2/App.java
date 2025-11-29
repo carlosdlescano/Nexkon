@@ -23,7 +23,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("/Vistas/VistaPrincipal"), 640, 480);
+        scene = new Scene(loadFXML("/Vistas/VistaPrincipal"), 640, 480);//carga vista principal
+        scene.getStylesheets().add(getClass().getResource("/estilos.css").toExternalForm());//carga estilos
+        
+        stage.setTitle("NexKon");
         stage.setScene(scene);
         stage.show();
     }

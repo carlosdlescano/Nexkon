@@ -24,14 +24,13 @@ import java.util.List;
  *
  * @author POS
  */
-
 public class VistaPrincipalController implements Initializable {
 
     private List<Departamento> listaDepartamentos;
     private List<Familia> listaFamilias;
     private List<Rubro> listaRubros;
     private List<Marca> listaMarca;
-  
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //carga las listas reutilizadas auxiliares
@@ -43,32 +42,29 @@ public class VistaPrincipalController implements Initializable {
         listaRubros = rub.ListarTodos();
         MarcaDAO mar = new MarcaDAOImpl();
         listaMarca = mar.ListarTodos();
-        
+
     }
     @FXML
     private StackPane ContenedorCentral;
 
     private void cargarVista(String rutaFXML) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/" + rutaFXML));
-        AnchorPane nuevaVista = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/" + rutaFXML));
+            AnchorPane nuevaVista = loader.load();
 
-        Object controller = loader.getController();
+            Object controller = loader.getController();
 
-        // Si el controlador implementa la interfaz, le paso las listas
-        if (controller instanceof DatosCompartidos) {
-              DatosCompartidos ctrl = (DatosCompartidos) controller;
-             ctrl.setDatos(listaDepartamentos,listaFamilias, listaRubros, listaMarca);
-         }
+            // Si el controlador implementa la interfaz, le paso las listas
+            if (controller instanceof DatosCompartidos) {
+                DatosCompartidos ctrl = (DatosCompartidos) controller;
+                ctrl.setDatos(listaDepartamentos, listaFamilias, listaRubros, listaMarca);
+            }
             ContenedorCentral.getChildren().setAll(nuevaVista);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }//cargar vista
 
-
-
-       
     @FXML
     private void abrirVistaArticulo() {
         cargarVista("VistaArticulos.fxml");
@@ -79,5 +75,4 @@ public class VistaPrincipalController implements Initializable {
         cargarVista("VistaPos.fxml");
     }
 
-   
 }
