@@ -89,26 +89,29 @@ public class ArticuloDAOImpl implements ArticuloDAO {
             stmt.setDouble(10, art.getMargen());
             stmt.setDouble(11, art.getPrecioVenta());
             stmt.setLong(12, art.getCodigoBarra());
-            
-            boolean tieneResultado = stmt.execute();
-            
-            if (tieneResultado) {
-            ResultSet rs = stmt.getResultSet();
-            if (rs.next()) {
-                String mensaje = rs.getString(1);
-                System.out.println("Mensaje SP: " + mensaje);
-                exito = mensaje.equalsIgnoreCase("OK");
-            }
-        }
 
-            
+            boolean tieneResultado = stmt.execute();
+
+            if (tieneResultado) {
+                ResultSet rs = stmt.getResultSet();
+                if (rs.next()) {
+                    String mensaje = rs.getString(1);
+                    System.out.println("Mensaje SP: " + mensaje);
+                    exito = mensaje.equalsIgnoreCase("OK");
+                }
+            }
+
         } catch (SQLException e) {
             System.err.println("Error al actualizar artículo: " + e.getMessage());
             exito = false;
         } finally {
             try {
-                if (stmt != null) stmt.close();
-                if (con != null)  con.close();
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException ex) {
                 System.out.println("Error al cerrar conexión: " + ex.getMessage());
             }
@@ -122,15 +125,15 @@ public class ArticuloDAOImpl implements ArticuloDAO {
     }
 
     public ArrayList<Articulo> buscar(int codigo, int marca, String descripcion, int departamento, int rubro, int familia, long codigoBarra) {
-        
+
         Connection con = null;
         CallableStatement stmt = null;
         ArrayList<Articulo> lista = new ArrayList<>();
         /**/
         try {
             con = Conexion.getConexion();
-            stmt = con.prepareCall("{call spBuscarArticuloFlexible(?, ?, ?, ?, ?, ?, ?)}");
-
+            stmt = con.prepareCall("{call spBuscarArticuloFlexible(?, ?, ?, ?, ?, ?, ?)}");//se ingresan como null los que no se tiene
+            //orden de parametros: codigo,marca,descipcion,departamento,rubro,familia,codigodebarra
             stmt.setObject(1, codigo != 0 ? codigo : null, Types.INTEGER);
             stmt.setObject(2, marca != 0 ? marca : null, Types.INTEGER);
             stmt.setObject(3, descripcion != null && !descripcion.isEmpty() ? descripcion : null, Types.VARCHAR);
@@ -142,6 +145,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Articulo art = new Articulo();
+                art.setIdCodArticulo(rs.getInt("idCodigo"));
                 art.setCodigo(rs.getInt("codigo"));
                 art.setMarca(rs.getInt("marca"));
                 art.setDescripcion(rs.getString("descripcion"));
@@ -160,9 +164,13 @@ public class ArticuloDAOImpl implements ArticuloDAO {
             System.out.println("Error al buscar artículos: " + e.getMessage());
         } finally {
             try {
-                if (stmt != null) stmt.close();
-                if (con != null) con.close();
-                
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
             } catch (SQLException ex) {
                 System.out.println("Error al cerrar conexión: " + ex.getMessage());
             }
@@ -170,9 +178,60 @@ public class ArticuloDAOImpl implements ArticuloDAO {
         return lista;
     }
 
+    public Articulo buscarArticulo(int codigo, int marca, String descripcion, int departamento, int rubro, int familia, long codigoBarra) {
+
+        Connection con = null;
+        CallableStatement stmt = null;
+        Articulo arti = new Articulo();;
+        /**/
+        try {
+            con = Conexion.getConexion();
+            stmt = con.prepareCall("{call spBuscarArticuloFlexible(?, ?, ?, ?, ?, ?, ?)}");//se ingresan como null los que no se tiene
+            //orden de parametros: codigo,marca,descipcion,departamento,rubro,familia,codigodebarra
+            stmt.setObject(1, codigo != 0 ? codigo : null, Types.INTEGER);
+            stmt.setObject(2, marca != 0 ? marca : null, Types.INTEGER);
+            stmt.setObject(3, descripcion != null && !descripcion.isEmpty() ? descripcion : null, Types.VARCHAR);
+            stmt.setObject(4, departamento != 0 ? departamento : null, Types.INTEGER);
+            stmt.setObject(5, rubro != 0 ? rubro : null, Types.INTEGER);
+            stmt.setObject(6, familia != 0 ? familia : null, Types.INTEGER);
+            stmt.setObject(7, codigoBarra != 0 ? codigoBarra : null, Types.BIGINT);
+
+            ResultSet rs = stmt.executeQuery();
+
+            
+            arti.setCodigo(rs.getInt("codigo"));
+            arti.setMarca(rs.getInt("marca"));
+            arti.setDescripcion(rs.getString("descripcion"));
+            arti.setCodDepartamento(rs.getInt("departamento"));
+            arti.setCodRubro(rs.getInt("rubro"));
+            arti.setCodFamilia(rs.getInt("familia"));
+            arti.setStock(rs.getInt("stock"));
+            arti.setPrecioCosto(rs.getDouble("precioCosto"));
+            arti.setMargen(rs.getDouble("margen"));
+            arti.setPrecioVenta(rs.getDouble("precioActual"));
+            arti.setCodigoBarra(rs.getLong("CodigoBarra"));
+
+        } catch (SQLException e) {
+            System.out.println("Error al buscar artículo: " + e.getMessage());
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Error al cerrar conexión: " + ex.getMessage());
+            }
+        }
+        return arti;
+    }
+
     @Override
     public List<Articulo> listarTodos() {
-        
+
         Connection con = null;
         CallableStatement stmt = null;
         ArrayList<Articulo> lista = new ArrayList<>();
@@ -202,9 +261,13 @@ public class ArticuloDAOImpl implements ArticuloDAO {
             System.out.println("Error al buscar artículos: " + e.getMessage());
         } finally {
             try {
-                if (stmt != null) stmt.close();
-                if (con != null) con.close();
-                
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+
             } catch (SQLException ex) {
                 System.out.println("Error al cerrar conexión: " + ex.getMessage());
             }

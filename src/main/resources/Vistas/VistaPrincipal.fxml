@@ -45,6 +45,9 @@
          </padding></HBox>
    </top>
    <center>
-      <StackPane fx:id="ContenedorCentral" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="ContenedorCentral" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="5.0" />
+         </BorderPane.margin></StackPane>
    </center>
 </BorderPane>

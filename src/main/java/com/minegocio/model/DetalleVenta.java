@@ -14,6 +14,7 @@ public class DetalleVenta {
     private int idCodArticulo;
     private int cantidad;
     private double precio;
+    private Articulo articulo;
 
     public DetalleVenta() {
     }
@@ -22,6 +23,21 @@ public class DetalleVenta {
         this.idCodArticulo = idCodArticulo;
         this.cantidad = cantidad;
     }
+
+    public DetalleVenta(int cantidad, Articulo articulo) {
+        this.cantidad = cantidad;
+        this.articulo = articulo;
+    }
+
+    public Articulo getArticulo() {
+        return articulo;
+    }
+
+    public void setArticulo(Articulo articulo) {
+        this.articulo = articulo;
+    }
+    
+    
     
 
     public int getIdDetalle() {
