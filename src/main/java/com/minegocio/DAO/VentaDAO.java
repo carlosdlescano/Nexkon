@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface VentaDAO {
     
-    public boolean grabarVenta(String cliente, Timestamp fechaVenta, List<DetalleVenta> detalles);
+    public boolean grabarVenta(String cliente, Timestamp fechaVenta, String medioPago, List<DetalleVenta> detalles);
     
     
 }

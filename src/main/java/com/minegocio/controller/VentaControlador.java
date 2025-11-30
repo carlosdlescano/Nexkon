@@ -20,7 +20,7 @@ public class VentaControlador {
         // El controlador se encarga de obtener la conexión y crear el DAO 
     }
     
-    public boolean registrarVenta(String cliente, List<DetalleVenta> detalles) {
+    public boolean registrarVenta(String cliente, String medioPago, List<DetalleVenta> detalles) {
         if (cliente == null || cliente.trim().isEmpty()) {
             System.out.println("Cliente no válido.");
             return false;
@@ -33,7 +33,7 @@ public class VentaControlador {
 
         Timestamp fechaVenta = new Timestamp(System.currentTimeMillis());
 
-        return ventaDAO.grabarVenta(cliente, fechaVenta, detalles);
+        return ventaDAO.grabarVenta(cliente, fechaVenta, medioPago, detalles);
     }
 
 }

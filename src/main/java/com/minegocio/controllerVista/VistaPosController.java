@@ -14,6 +14,7 @@ import static com.minegocio.util.util.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -24,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -99,7 +101,7 @@ public class VistaPosController implements Initializable {
 
         if (art == null) {
                 System.out.println("Artículo no encontrado");
-                mostrarAlerta("", "Codigo inexistente", Alert.AlertType.WARNING);
+                mostrarAlerta("", "Codigo inexistente", Alert.AlertType.WARNING,false);
                 return;
             }
             System.out.println("Articulo econtrado: " + art.toString() + "**************************");
@@ -112,7 +114,7 @@ public class VistaPosController implements Initializable {
         }
     }
 
-    private void agregarFilaVenta(Articulo art) {
+    public void agregarFilaVenta(Articulo art) {
 
         int cant = Integer.parseInt(txtCantidad.getText());
 
@@ -135,7 +137,7 @@ public class VistaPosController implements Initializable {
 
         tablaArticulosVenta.getItems().add(det);
         calcularTotal();
-        
+
     }
 
     private void calcularTotal() {
@@ -143,17 +145,28 @@ public class VistaPosController implements Initializable {
         for (DetalleVenta d : tablaArticulosVenta.getItems()) {
             total += d.getCantidad() * d.getPrecio();
         }
-        System.out.println("tota------------" + total);
         txtTotal.setText(String.format("%.2f", total));
     }
+    @FXML
+    private void BuscarArticuloTexto() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/BuscarArticulo.fxml"));
+        Parent root = loader.load();
+        BuscarArticuloController controller = loader.getController(); //referencia al controlador de la vistabuscararticulo
+        
+        controller.setPosController(this);
 
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+    }
     @FXML
     private void cobrar() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/MetodoPago.fxml"));
         Parent root = loader.load();
         MetodoPagoController controller = loader.getController();
 
-        // Pasarle la lista de detalles y el cliente si hace falta
+        // Pasarle la lista de detalles
         controller.setListaDetalles(tablaArticulosVenta.getItems());
         controller.setPosController(this); // si quieres llamar grabarVenta desde el dialog
 
@@ -164,27 +177,30 @@ public class VistaPosController implements Initializable {
     }
 
     @FXML
-    public void confirmarVenta(String MetodoPago) {
+    public void confirmarVenta(String metodoPago) {
         
         if (listaDetalles.isEmpty()) {
             System.out.println("No hay artículos en la venta");
             return;
         }
-
+        
         String cliente = "Consumidor Final";  // o txtCliente.getText();
         Timestamp fecha = new Timestamp(System.currentTimeMillis());
 
         VentaDAO dao = new VentaDAOImpl();
-        boolean ok = dao.grabarVenta(cliente, fecha, listaDetalles);
+        boolean ok = dao.grabarVenta(cliente, fecha, metodoPago, listaDetalles);
 
         if (ok) {
-            System.out.println("Venta registrada con éxito");
+            System.out.println("Venta registrada con exito");
             limpiarVenta();
-            
+
         } else {
             System.out.println("Error al registrar venta");
+           
         }
     }
+    
+   
 
     public void limpiarVenta() {
         tablaArticulosVenta.getItems().clear();
@@ -193,4 +209,42 @@ public class VistaPosController implements Initializable {
         txtCantidad.setText("1");
     }
 
+    @FXML
+    private void anularArticuloSeleccionado() {
+        // Obtener el artículo seleccionado
+        DetalleVenta seleccionado = tablaArticulosVenta.getSelectionModel().getSelectedItem();
+
+        if (seleccionado != null) {
+            // Remover de la tabla
+            tablaArticulosVenta.getItems().remove(seleccionado);
+
+            calcularTotal();
+        } else {
+
+            System.out.println("No hay artículo seleccionado para anular");
+            mostrarAlerta("", "Debe seleccionar un articulo para quitar", Alert.AlertType.INFORMATION,false);
+        }
+    }
+
+    @FXML
+    private void anularTicket() {
+        if (!tablaArticulosVenta.getItems().isEmpty()) {
+            // Confirmar con el usuario
+            boolean confirmar = mostrarAlerta("Confirmar anulación", "¿Seguro que deseas anular toda la venta?", Alert.AlertType.CONFIRMATION, true);
+            
+            if (confirmar) {
+                // Limpiar tabla y campos
+                tablaArticulosVenta.getItems().clear();
+                txtTotal.clear();
+                txtCodigo.clear();
+                txtCantidad.setText("1");
+                mostrarAlerta("", "Venta anulada correctamente", Alert.AlertType.INFORMATION, false);
+            }
+        } else {
+            mostrarAlerta("", "No hay articulos cargados", Alert.AlertType.INFORMATION, false);
+            //showWarning("No hay artículos cargados en la venta");
+        }
+    }
+
+    
 }

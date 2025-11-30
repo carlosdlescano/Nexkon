@@ -9,11 +9,13 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataTable;
 import com.minegocio.DAO.VentaDAO;
 import com.minegocio.model.DetalleVenta;
 import com.minegocio.util.Conexion;
+import com.minegocio.util.util;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -25,15 +27,16 @@ public class VentaDAOImpl implements VentaDAO {
     private SQLServerCallableStatement stmt = null; // se usa el tipo SQLServerCallableStatement para que se pueda enviar la estructura en la posicion 3
     private boolean exito = false;
 
-    public boolean grabarVenta(String cliente, Timestamp fechaVenta, List<DetalleVenta> detalles) {
+    public boolean grabarVenta(String cliente, Timestamp fechaVenta, String medioPago, List<DetalleVenta> detalles) {
         con = null;
                 
         try {
             con = Conexion.getConexion();
-            stmt = (SQLServerCallableStatement)con.prepareCall("{call sp_RegistrarVenta(?, ?, ?)}");
+            stmt = (SQLServerCallableStatement)con.prepareCall("{call sp_RegistrarVenta(?, ?, ?, ?)}");
 
             stmt.setString(1, cliente);
             stmt.setTimestamp(2, fechaVenta);
+            stmt.setString(3, medioPago);
 
             SQLServerDataTable tvp = new SQLServerDataTable();
             tvp.addColumnMetadata("idCodArticulo", java.sql.Types.INTEGER);
@@ -43,11 +46,12 @@ public class VentaDAOImpl implements VentaDAO {
                 tvp.addRow(d.getIdCodArticulo(), d.getCantidad());
             }
 
-            stmt.setStructured(3, "DetalleVentaType", tvp);
+            stmt.setStructured(4, "DetalleVentaType", tvp);
             stmt.execute();
             stmt.close();
             exito = true;
         } catch(SQLException e)  {
+            util.mostrarAlerta("Error al cargar la venta", e.getMessage(), Alert.AlertType.WARNING, false);
             System.out.println("Error al cargar la venta: " + e.getMessage());
         } finally {
             try {

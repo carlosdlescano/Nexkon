@@ -177,6 +177,10 @@ public class ArticuloDAOImpl implements ArticuloDAO {
         }
         return lista;
     }
+    
+    public ArrayList<Articulo> buscarDescripcion(String descripcion){
+        return buscar(0,0,descripcion,0,0,0,0);
+    }   
 
     public Articulo buscarArticulo(int codigo, int marca, String descripcion, int departamento, int rubro, int familia, long codigoBarra) {
 

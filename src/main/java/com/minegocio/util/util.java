@@ -4,7 +4,9 @@
  */
 package com.minegocio.util;
 
+import java.util.Optional;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.DoubleStringConverter;
@@ -38,12 +40,20 @@ public class util {
         txtText.setTextFormatter(formatDecimal);
     }
 
-    public static void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+    public static boolean mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo, boolean esConfirmacion) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
-        alert.showAndWait();
+
+        if (esConfirmacion) {
+            Optional<ButtonType> result = alert.showAndWait();
+            return result.isPresent() && result.get() == ButtonType.OK;
+        } else {
+            alert.showAndWait();
+            return true; // solo para mantener el tipo boolean, aunque no importa
+        }
+
     }
 
 }

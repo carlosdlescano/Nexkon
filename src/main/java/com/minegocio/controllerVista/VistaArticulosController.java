@@ -246,7 +246,7 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
             if (artdao.actualizarArticulo(artedit)) {
                 System.out.println("Actualizacion completa");
                 TablaArticulos.refresh();
-                mostrarAlerta("Edicion de articulo", "La edición fue exitosa!", Alert.AlertType.CONFIRMATION);
+                mostrarAlerta("Edicion de articulo", "La edición fue exitosa!", Alert.AlertType.CONFIRMATION,false);
                 // 🔹 Reemplazar solo la fila seleccionada en el TableView
                 int index = TablaArticulos.getSelectionModel().getSelectedIndex();
                 TablaArticulos.getItems().set(index, artedit); // actualiza visualmente la fila
@@ -294,7 +294,7 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
                 System.out.println("Artículo guardado exitosamente.");
                 cargarTabla();
                 TablaArticulos.refresh();
-                mostrarAlerta("Articulo Nuevo", "El articulo se cargo exitosamente!", Alert.AlertType.CONFIRMATION);
+                mostrarAlerta("Articulo Nuevo", "El articulo se cargo exitosamente!", Alert.AlertType.CONFIRMATION,false);
                
             } else {
                 System.out.println("Error al guardar el artículo.");

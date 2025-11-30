@@ -11,5 +11,6 @@ module com.minegocio.minegocio2 {
 
     // Tus controladores están acá
     opens com.minegocio.controllerVista to javafx.fxml;
+    opens com.minegocio.model to javafx.base, javafx.fxml;
     exports com.minegocio.controllerVista;
 }
