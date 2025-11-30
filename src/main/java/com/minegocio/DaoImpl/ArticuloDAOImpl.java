@@ -182,7 +182,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
 
         Connection con = null;
         CallableStatement stmt = null;
-        Articulo arti = new Articulo();;
+        Articulo arti = null;
         /**/
         try {
             con = Conexion.getConexion();
@@ -198,19 +198,21 @@ public class ArticuloDAOImpl implements ArticuloDAO {
 
             ResultSet rs = stmt.executeQuery();
 
-            
-            arti.setCodigo(rs.getInt("codigo"));
-            arti.setMarca(rs.getInt("marca"));
-            arti.setDescripcion(rs.getString("descripcion"));
-            arti.setCodDepartamento(rs.getInt("departamento"));
-            arti.setCodRubro(rs.getInt("rubro"));
-            arti.setCodFamilia(rs.getInt("familia"));
-            arti.setStock(rs.getInt("stock"));
-            arti.setPrecioCosto(rs.getDouble("precioCosto"));
-            arti.setMargen(rs.getDouble("margen"));
-            arti.setPrecioVenta(rs.getDouble("precioActual"));
-            arti.setCodigoBarra(rs.getLong("CodigoBarra"));
-
+            if (rs.next()) {
+                arti = new Articulo();
+                arti.setIdCodArticulo(rs.getInt("idCodigo"));
+                arti.setCodigo(rs.getInt("codigo"));
+                arti.setMarca(rs.getInt("marca"));
+                arti.setDescripcion(rs.getString("descripcion"));
+                arti.setCodDepartamento(rs.getInt("departamento"));
+                arti.setCodRubro(rs.getInt("rubro"));
+                arti.setCodFamilia(rs.getInt("familia"));
+                arti.setStock(rs.getInt("stock"));
+                arti.setPrecioCosto(rs.getDouble("precioCosto"));
+                arti.setMargen(rs.getDouble("margen"));
+                arti.setPrecioVenta(rs.getDouble("precioActual"));
+                arti.setCodigoBarra(rs.getLong("CodigoBarra"));
+            }
         } catch (SQLException e) {
             System.out.println("Error al buscar artículo: " + e.getMessage());
         } finally {

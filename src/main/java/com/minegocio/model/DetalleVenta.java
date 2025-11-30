@@ -9,6 +9,7 @@ package com.minegocio.model;
  * @author POS
  */
 public class DetalleVenta {
+
     private int idDetalle;
     private int idVenta;
     private int idCodArticulo;
@@ -36,9 +37,6 @@ public class DetalleVenta {
     public void setArticulo(Articulo articulo) {
         this.articulo = articulo;
     }
-    
-    
-    
 
     public int getIdDetalle() {
         return idDetalle;
@@ -79,10 +77,9 @@ public class DetalleVenta {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
-    
-            
-            
-            
-    
+
+    public double getSubtotal() {
+        return precio * cantidad;
+    }
+
 }

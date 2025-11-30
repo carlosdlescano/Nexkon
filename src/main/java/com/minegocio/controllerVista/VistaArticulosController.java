@@ -32,6 +32,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import static com.minegocio.util.util.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 public class VistaArticulosController implements Initializable, DatosCompartidos {
@@ -245,6 +246,7 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
             if (artdao.actualizarArticulo(artedit)) {
                 System.out.println("Actualizacion completa");
                 TablaArticulos.refresh();
+                mostrarAlerta("Edicion de articulo", "La edición fue exitosa!", Alert.AlertType.CONFIRMATION);
                 // 🔹 Reemplazar solo la fila seleccionada en el TableView
                 int index = TablaArticulos.getSelectionModel().getSelectedIndex();
                 TablaArticulos.getItems().set(index, artedit); // actualiza visualmente la fila
@@ -292,7 +294,7 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
                 System.out.println("Artículo guardado exitosamente.");
                 cargarTabla();
                 TablaArticulos.refresh();
-                
+                mostrarAlerta("Articulo Nuevo", "El articulo se cargo exitosamente!", Alert.AlertType.CONFIRMATION);
                
             } else {
                 System.out.println("Error al guardar el artículo.");
