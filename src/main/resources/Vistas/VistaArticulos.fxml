@@ -65,7 +65,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0" GridPane.rowIndex="1">
+                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -76,9 +76,18 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="Departamento" />
-                                    <Label text="Rubro" GridPane.rowIndex="1" />
-                                    <Label text="Familia" GridPane.rowIndex="2" />
+                                    <Label text="Departamento" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin></Label>
+                                    <Label text="Rubro" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin></Label>
+                                    <Label text="Familia" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin></Label>
                                     <ChoiceBox fx:id="cboxRubro" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
@@ -96,7 +105,7 @@
                                     </ChoiceBox>
                                  </children>
                               </GridPane>
-                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0" GridPane.rowIndex="2">
+                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -106,21 +115,27 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="Stock" />
-                                    <Label text="Precio Costo" GridPane.rowIndex="1" />
-                                    <TextField fx:id="txtStock" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1">
+                                    <Label text="Precio Costo" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                                        <GridPane.margin>
-                                          <Insets right="5.0" />
+                                          <Insets left="10.0" />
+                                       </GridPane.margin></Label>
+                                    <Label text="Margen" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin></Label>
+                                    <TextField fx:id="txtMargen" onKeyReleased="#actualizarPrecio" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
                                        </GridPane.margin>
                                     </TextField>
-                                    <TextField fx:id="txtPrecioCosto" onKeyReleased="#actualizarPrecio" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <TextField fx:id="txtPrecioCosto" onKeyReleased="#actualizarPrecio" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                                        <GridPane.margin>
-                                          <Insets right="5.0" />
+                                          <Insets left="10.0" />
                                        </GridPane.margin>
                                     </TextField>
                                  </children>
                               </GridPane>
-                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -130,21 +145,28 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="Margen" />
-                                    <Label text="Precio Venta" GridPane.rowIndex="1" />
-                                    <TextField fx:id="txtMargen" onKeyReleased="#actualizarPrecio" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1">
+                                    <Label text="Precio Venta" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                        <GridPane.margin>
-                                          <Insets right="5.0" />
+                                          <Insets left="10.0" />
+                                       </GridPane.margin></Label>
+                                    <TextField fx:id="txtPrecioActual" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
                                        </GridPane.margin>
                                     </TextField>
-                                    <TextField fx:id="txtPrecioActual" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <Label text="Stock Critico" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                                        <GridPane.margin>
-                                          <Insets right="5.0" />
+                                          <Insets left="10.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <TextField fx:id="txtStockCritico" onKeyReleased="#actualizarPrecio" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
                                        </GridPane.margin>
                                     </TextField>
                                  </children>
                               </GridPane>
-                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0">
+                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0" GridPane.valignment="CENTER">
                                  <columnConstraints>
                                     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                                  </columnConstraints>
@@ -162,7 +184,7 @@
                                     <Label text="Codigo" GridPane.rowIndex="3" />
                                  </children>
                               </GridPane>
-                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0" GridPane.columnIndex="1">
+                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0" GridPane.columnIndex="1" GridPane.valignment="CENTER">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                  </columnConstraints>
@@ -199,7 +221,7 @@
                                        <children>
                                           <TextField fx:id="txtCodMarca" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1">
                                              <GridPane.margin>
-                                                <Insets right="5.0" />
+                                                <Insets left="5.0" right="5.0" />
                                              </GridPane.margin>
                                           </TextField>
                                           <ChoiceBox fx:id="cboxMarca" prefWidth="150.0">
@@ -209,6 +231,29 @@
                                           </ChoiceBox>
                                        </children>
                                     </GridPane>
+                                 </children>
+                              </GridPane>
+                              <GridPane maxWidth="-Infinity" prefHeight="239.0" prefWidth="327.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Stock" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <TextField fx:id="txtStock" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin>
+                                    </TextField>
                                  </children>
                               </GridPane>
                            </children>

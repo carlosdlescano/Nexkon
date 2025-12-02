@@ -30,7 +30,7 @@
                   <Insets />
                </opaqueInsets>
                <children>
-                  <HBox alignment="CENTER" focusTraversable="true" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="CENTER" focusTraversable="true" prefHeight="100.0" prefWidth="200.0" spacing="5.0" styleClass="contenedorGris" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="Codigo" />
                         <TextField fx:id="txtCodigo" onAction="#agregarArticuloPorCodigo" prefHeight="25.0" prefWidth="165.0" />
@@ -44,6 +44,7 @@
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin></Button>
+                        <Label alignment="CENTER" prefHeight="80.0" prefWidth="100.0" text="VENTAS" HBox.hgrow="ALWAYS" />
                      </children>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -90,7 +91,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <SplitPane dividerPositions="0.5048543689320389" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: #FFFFFF;" GridPane.columnIndex="2">
+                        <SplitPane dividerPositions="0.5048543689320389" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="contenedorGris" GridPane.columnIndex="2">
                            <items>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="14.0" prefWidth="288.0">
                                  <padding>

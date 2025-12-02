@@ -74,5 +74,9 @@ public class VistaPrincipalController implements Initializable {
     private void abrirVistaVenta() {
         cargarVista("VistaPos.fxml");
     }
+    @FXML
+    private void abrirVistaCompras(){
+        cargarVista("VistaCompras.fxml");
+    }
 
 }

@@ -9,6 +9,45 @@
     -fx-background-color: #E8F5E9; /* verde claro */
     
 }
+.contenedorGris {
+    -fx-background-color: #F0F0F0;
+}
+
+/* Estilo para los botones en el MenuBar */
+.menu-bar .menu > .menu-item {
+    -fx-font-size: 16px; /* Tamaño de la fuente */
+    -fx-padding: 5px 10px; /* Espaciado alrededor del texto del botón */
+    -fx-pref-width: 150px; /* Ancho preferido */
+    -fx-pref-height: 40px; /* Altura preferida */
+}
+.menuBar {
+    -fx-font-size: 16px; /* Tamaño de la fuente */
+    -fx-padding: 5px 10px; /* Espaciado alrededor del texto del botón */
+    -fx-pref-width: USE_COMPUTED_SIZE; /* Ancho preferido */
+    -fx-pref-height: 17px; /* Altura preferida */
+    -fx-background-color: #F0F0F0;
+    -fx-hgap: 10px;
+}
+
+/* Estilo para los items del menú cuando están seleccionados */
+.menu-bar .menu > .menu-item:hover {
+    -fx-background-color: #2e7d32; /* Color de fondo cuando se selecciona */
+    -fx-text-fill: white; /* Color del texto cuando se selecciona */
+}
+
+/* Estilo para los botones del submenú */
+.menu-bar .menu > .menu-item > .menu {
+    -fx-font-size: 14px; /* Tamaño de fuente de los submenús */
+    -fx-pref-width: 120px; /* Ancho preferido de los submenús */
+}
+
+/* Estilo para los items del submenú */
+.menu-bar .menu > .menu-item > .menu > .menu-item {
+    -fx-font-size: 14px;
+    -fx-pref-width: 120px;
+    -fx-padding: 5px 10px;
+}
+
 /* Estilo para ChoiceBox deshabilitado */
 .choice-box:disabled {
     -fx-opacity: 1; /* Hace que no cambie la opacidad */
@@ -84,7 +123,7 @@
 }
 
 .table-view .column-header {
-    -fx-background-color: #F0F0F0;
+    -fx-background-color: #F0F0F0; /*gris claro*/
     -fx-font-weight: bold;
     -fx-text-fill: #2C3E50;
 }

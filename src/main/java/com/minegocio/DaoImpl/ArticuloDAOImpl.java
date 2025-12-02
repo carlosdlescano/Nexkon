@@ -35,7 +35,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
 
         try {
             con = Conexion.getConexion();
-            stmt = con.prepareCall("{call spCrearArticulo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+            stmt = con.prepareCall("{call spCrearArticulo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)}");
 
             stmt.setInt(1, art.getCodigo());
             stmt.setInt(2, art.getMarca());
@@ -44,10 +44,11 @@ public class ArticuloDAOImpl implements ArticuloDAO {
             stmt.setInt(5, art.getCodFamilia());
             stmt.setString(6, art.getDescripcion());
             stmt.setInt(7, art.getStock());
-            stmt.setBigDecimal(8, BigDecimal.valueOf(art.getPrecioCosto()));
-            stmt.setBigDecimal(9, BigDecimal.valueOf(art.getMargen()));
-            stmt.setBigDecimal(10, BigDecimal.valueOf(art.getPrecioVenta()));
-            stmt.setLong(11, art.getCodigoBarra());
+            stmt.setInt(8, art.getStockCritico());
+            stmt.setBigDecimal(9, BigDecimal.valueOf(art.getPrecioCosto()));
+            stmt.setBigDecimal(10, BigDecimal.valueOf(art.getMargen()));
+            stmt.setBigDecimal(11, BigDecimal.valueOf(art.getPrecioVenta()));
+            stmt.setLong(12, art.getCodigoBarra());
             stmt.execute();
             exito = true;
         } catch (SQLException e) {
@@ -75,7 +76,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
 
         try {
             con = Conexion.getConexion();
-            stmt = con.prepareCall("{call spActualizarArticulo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+            stmt = con.prepareCall("{call spActualizarArticulo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 
             stmt.setInt(1, art.getIdCodArticulo()); // clave primaria
             stmt.setInt(2, art.getCodigo());   // se puede modificar
@@ -85,10 +86,11 @@ public class ArticuloDAOImpl implements ArticuloDAO {
             stmt.setInt(6, art.getCodFamilia());
             stmt.setString(7, art.getDescripcion());
             stmt.setInt(8, art.getStock());
-            stmt.setDouble(9, art.getPrecioCosto());
-            stmt.setDouble(10, art.getMargen());
-            stmt.setDouble(11, art.getPrecioVenta());
-            stmt.setLong(12, art.getCodigoBarra());
+            stmt.setInt(9, art.getStockCritico());
+            stmt.setDouble(10, art.getPrecioCosto());
+            stmt.setDouble(11, art.getMargen());
+            stmt.setDouble(12, art.getPrecioVenta());
+            stmt.setLong(13, art.getCodigoBarra());
 
             boolean tieneResultado = stmt.execute();
 
@@ -153,6 +155,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
                 art.setCodRubro(rs.getInt("rubro"));
                 art.setCodFamilia(rs.getInt("familia"));
                 art.setStock(rs.getInt("stock"));
+                art.setStockCritico(rs.getInt("StockCritico"));
                 art.setPrecioCosto(rs.getDouble("precioCosto"));
                 art.setMargen(rs.getDouble("margen"));
                 art.setPrecioVenta(rs.getDouble("precioActual"));
@@ -177,10 +180,10 @@ public class ArticuloDAOImpl implements ArticuloDAO {
         }
         return lista;
     }
-    
-    public ArrayList<Articulo> buscarDescripcion(String descripcion){
-        return buscar(0,0,descripcion,0,0,0,0);
-    }   
+
+    public ArrayList<Articulo> buscarDescripcion(String descripcion) {
+        return buscar(0, 0, descripcion, 0, 0, 0, 0);
+    }
 
     public Articulo buscarArticulo(int codigo, int marca, String descripcion, int departamento, int rubro, int familia, long codigoBarra) {
 
@@ -212,6 +215,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
                 arti.setCodRubro(rs.getInt("rubro"));
                 arti.setCodFamilia(rs.getInt("familia"));
                 arti.setStock(rs.getInt("stock"));
+                arti.setStockCritico(rs.getInt("StockCritico"));
                 arti.setPrecioCosto(rs.getDouble("precioCosto"));
                 arti.setMargen(rs.getDouble("margen"));
                 arti.setPrecioVenta(rs.getDouble("precioActual"));
@@ -256,6 +260,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
                 art.setCodRubro(rs.getInt("rubro"));
                 art.setCodFamilia(rs.getInt("familia"));
                 art.setStock(rs.getInt("stock"));
+                art.setStockCritico(rs.getInt("StockCritico"));
                 art.setPrecioCosto(rs.getDouble("precioCosto"));
                 art.setMargen(rs.getDouble("margen"));
                 art.setPrecioVenta(rs.getDouble("precioActual"));

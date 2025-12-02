@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 | Familia familia |
 | String descripcion |
 | int stock   |
+| int StockCritico   |
 | double precioCosto |
 | double margen |
 | double precioVenta |
@@ -28,8 +29,9 @@ import java.math.BigDecimal;
 | Long codigoDeBarra |
 +----------------+
 
-*/
+ */
 public class Articulo {
+
     private int idCodArticulo;
     private int codigo;
     private int marca;
@@ -38,13 +40,14 @@ public class Articulo {
     private int codFamilia;
     private String descripcion;
     private int stock;
+    private int StockCritico;
     private double precioCosto;
     private double margen;
     private double precioVenta;
     private int estado;
     private long codigoBarra;
 
-    public Articulo(int codigo, int marca, int departamento, int rubro, int familia, String descipcion, int stock, double precioCosto, double margen, double precioVenta, int estado, long codigoBarra) {
+    public Articulo(int codigo, int marca, int departamento, int rubro, int familia, String descipcion, int stock, int StockCritico, double precioCosto, double margen, double precioVenta, int estado, long codigoBarra) {
         this.codigo = codigo;
         this.marca = marca;
         this.codDepartamento = departamento;
@@ -52,13 +55,22 @@ public class Articulo {
         this.codFamilia = familia;
         this.descripcion = descipcion;
         this.stock = stock;
+        this.StockCritico = StockCritico;
         this.precioCosto = precioCosto;
         this.margen = margen;
         this.precioVenta = precioVenta;
         this.estado = estado;
         this.codigoBarra = codigoBarra;
     }
-    
+
+    public int getStockCritico() {
+        return StockCritico;
+    }
+
+    public void setStockCritico(int StockCritico) {
+        this.StockCritico = StockCritico;
+    }
+
     public Articulo() {
     }
 
@@ -69,7 +81,7 @@ public class Articulo {
     public void setIdCodArticulo(int idCodArticulo) {
         this.idCodArticulo = idCodArticulo;
     }
-    
+
     public int getCodigo() {
         return codigo;
     }
@@ -109,7 +121,6 @@ public class Articulo {
     public void setCodFamilia(int codFamilia) {
         this.codFamilia = codFamilia;
     }
-    
 
     public String getDescripcion() {
         return descripcion;
@@ -171,13 +182,5 @@ public class Articulo {
     public String toString() {
         return "Articulo{" + "idCodArticulo=" + idCodArticulo + ", codigo=" + codigo + ", marca=" + marca + ", codDepartamento=" + codDepartamento + ", codRubro=" + codRubro + ", codFamilia=" + codFamilia + ", descripcion=" + descripcion + ", stock=" + stock + ", precioCosto=" + precioCosto + ", margen=" + margen + ", precioVenta=" + precioVenta + ", estado=" + estado + ", codigoBarra=" + codigoBarra + '}';
     }
-    
-    
 
-   
-    
-    
-    
-    
-    
 }

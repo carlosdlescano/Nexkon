@@ -65,6 +65,8 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
     private TextField txtPrecioCosto;
     @FXML
     private TextField txtStock;
+    @FXML
+    private TextField txtStockCritico;
 
     @FXML
     private ChoiceBox<String> cboxRubro;
@@ -89,6 +91,7 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
         formatDouble(txtPrecioActual);
         formatDouble(txtPrecioCosto);
         formatInteger(txtStock);
+        formatInteger(txtStockCritico);
 
         habilitarEdicion(false);
 
@@ -135,6 +138,7 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
         txtPrecioActual.setText(String.valueOf(a.getPrecioVenta()));
         txtPrecioCosto.setText(String.valueOf(a.getPrecioCosto()));
         txtStock.setText(String.valueOf(a.getStock()));
+        txtStockCritico.setText(String.valueOf(a.getStockCritico()));
         String rubroSeleccionado = rubros.get(a.getCodRubro() - 1).getDescripcion();
         cboxRubro.setValue(rubroSeleccionado);
         String depaSelect = departamentos.get(a.getCodDepartamento() - 1).getDescripcion();
@@ -183,6 +187,7 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
         txtMargen.clear();
         txtPrecioCosto.clear();
         txtStock.clear();
+        txtStockCritico.clear();
 
         cboxRubro.setValue(null);
         cboxDepartamento.setValue(null);
@@ -198,6 +203,7 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
         txtPrecioCosto.setEditable(band);
         txtStock.setEditable(band);
         TablaArticulos.setDisable(band);
+        txtStockCritico.setEditable(band);
 
         cboxRubro.setMouseTransparent(!band);
         cboxRubro.setFocusTraversable(band);
@@ -214,7 +220,7 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
 
     public void editarArticulo() {
         habilitarEdicion(true);
-        esEditado=true;
+        esEditado = true;
     }
 
     public void cancelarEdicion() {
@@ -222,83 +228,92 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
         limpiarDetalles();
 
     }
-
+    @FXML
     public void guardarArticulo() {
         ArticuloDAO artdao = new ArticuloDAOImpl();
 
         if (esEditado) {
-            Articulo articuloSeleccionado = TablaArticulos.getSelectionModel().getSelectedItem();
-            Articulo artedit = new Articulo();
-            if (articuloSeleccionado != null) {
-                artedit.setIdCodArticulo(articuloSeleccionado.getIdCodArticulo());
-                artedit.setCodDepartamento(cboxDepartamento.getSelectionModel().getSelectedIndex() + 1);
-                artedit.setCodFamilia(cboxFamilia.getSelectionModel().getSelectedIndex() + 1);
-                artedit.setCodRubro(cboxRubro.getSelectionModel().getSelectedIndex() + 1);
-                artedit.setCodigo(Integer.parseInt(txtCodigo.getText()));
-                artedit.setCodigoBarra(Long.parseLong(txtCodigoBarra.getText()));
-                artedit.setDescripcion(txtDescripcion.getText());
-                artedit.setMarca(cboxMarca.getSelectionModel().getSelectedIndex() + 1);
-                artedit.setMargen(Double.parseDouble(txtMargen.getText()));
-                artedit.setPrecioCosto(Double.parseDouble(txtPrecioCosto.getText()));
-                artedit.setPrecioVenta(Double.parseDouble(txtPrecioActual.getText()));
-                artedit.setStock(Integer.parseInt(txtStock.getText()));
-            }
-            if (artdao.actualizarArticulo(artedit)) {
-                System.out.println("Actualizacion completa");
-                TablaArticulos.refresh();
-                mostrarAlerta("Edicion de articulo", "La edición fue exitosa!", Alert.AlertType.CONFIRMATION,false);
-                // 🔹 Reemplazar solo la fila seleccionada en el TableView
-                int index = TablaArticulos.getSelectionModel().getSelectedIndex();
-                TablaArticulos.getItems().set(index, artedit); // actualiza visualmente la fila
+            boolean confirmaEdi = mostrarAlerta("Confirmación", "¿Esta seguro de guardar los cambios? ", Alert.AlertType.CONFIRMATION, true);
+            if (confirmaEdi) {
+                Articulo articuloSeleccionado = TablaArticulos.getSelectionModel().getSelectedItem();
+                Articulo artedit = new Articulo();
+                if (articuloSeleccionado != null) {
+                    artedit.setIdCodArticulo(articuloSeleccionado.getIdCodArticulo());
+                    artedit.setCodDepartamento(cboxDepartamento.getSelectionModel().getSelectedIndex() + 1);
+                    artedit.setCodFamilia(cboxFamilia.getSelectionModel().getSelectedIndex() + 1);
+                    artedit.setCodRubro(cboxRubro.getSelectionModel().getSelectedIndex() + 1);
+                    artedit.setCodigo(Integer.parseInt(txtCodigo.getText()));
+                    artedit.setCodigoBarra(Long.parseLong(txtCodigoBarra.getText()));
+                    artedit.setDescripcion(txtDescripcion.getText());
+                    artedit.setMarca(cboxMarca.getSelectionModel().getSelectedIndex() + 1);
+                    artedit.setMargen(Double.parseDouble(txtMargen.getText()));
+                    artedit.setPrecioCosto(Double.parseDouble(txtPrecioCosto.getText()));
+                    artedit.setPrecioVenta(Double.parseDouble(txtPrecioActual.getText()));
+                    artedit.setStock(Integer.parseInt(txtStock.getText()));
+                    artedit.setStockCritico(Integer.parseInt(txtStockCritico.getText()));
+                }
+                if (artdao.actualizarArticulo(artedit)) {
+                    System.out.println("Actualizacion completa");
+                    TablaArticulos.refresh();
+                    mostrarAlerta("Edicion de articulo", "La edición fue exitosa!", Alert.AlertType.CONFIRMATION, false);
+                    // 🔹 Reemplazar solo la fila seleccionada en el TableView
+                    int index = TablaArticulos.getSelectionModel().getSelectedIndex();
+                    TablaArticulos.getItems().set(index, artedit); // actualiza visualmente la fila
 
-                // Mantener la selección
-                TablaArticulos.getSelectionModel().select(index);
-                TablaArticulos.scrollTo(index);
-            } else {
-                System.out.println("Error al actualizar artículo");
-            }
+                    // Mantener la selección
+                    TablaArticulos.getSelectionModel().select(index);
+                    TablaArticulos.scrollTo(index);
+                } else {
+                    System.out.println("Error al actualizar artículo");
+                }
+            }//fin if confirmado
         }//fin edicion
         else {
-            Articulo nuevoArticulo = new Articulo();
+            boolean confirmaNuevo = mostrarAlerta("Confirmación", "¿Esta seguro de guardar NUEVO articulo? ", Alert.AlertType.CONFIRMATION, true);
+            if (confirmaNuevo) {
+                Articulo nuevoArticulo = new Articulo();
 
-            // Tomar los valores de los campos del formulario
-            String descripcion = txtDescripcion.getText();
-            int codigo = Integer.parseInt(txtCodigo.getText());
-            long codigoBarra = Long.parseLong(txtCodigoBarra.getText());
-            double margen = Double.parseDouble(txtMargen.getText());
-            double precioCosto = Double.parseDouble(txtPrecioCosto.getText());
-            int stock = Integer.parseInt(txtStock.getText());
+                // Tomar los valores de los campos del formulario
+                String descripcion = txtDescripcion.getText();
+                int codigo = Integer.parseInt(txtCodigo.getText());
+                long codigoBarra = Long.parseLong(txtCodigoBarra.getText());
+                double margen = Double.parseDouble(txtMargen.getText());
+                double precioCosto = Double.parseDouble(txtPrecioCosto.getText());
+                int stock = Integer.parseInt(txtStock.getText());
+                int setStockCritico = Integer.parseInt(txtStockCritico.getText());
 
-            int codRubro = cboxRubro.getSelectionModel().getSelectedIndex() + 1;
-            int codDepartamento = cboxDepartamento.getSelectionModel().getSelectedIndex() + 1;
-            int codFamilia = cboxFamilia.getSelectionModel().getSelectedIndex() + 1;
-            int codMarca = cboxMarca.getSelectionModel().getSelectedIndex() + 1;
-            double precioVenta = Double.parseDouble(txtPrecioActual.getText());
-            // Asignar estos valores al nuevo artículo
-            nuevoArticulo.setDescripcion(descripcion);
-            nuevoArticulo.setCodigo(codigo);
-            nuevoArticulo.setCodigoBarra(codigoBarra);
-            nuevoArticulo.setPrecioVenta(precioVenta);
-            nuevoArticulo.setMargen(margen);
-            nuevoArticulo.setPrecioCosto(precioCosto);
-            nuevoArticulo.setStock(stock);
-            nuevoArticulo.setCodRubro(codRubro);
-            nuevoArticulo.setCodDepartamento(codDepartamento);
-            nuevoArticulo.setCodFamilia(codFamilia);
-            nuevoArticulo.setMarca(codMarca);
+                int codRubro = cboxRubro.getSelectionModel().getSelectedIndex() + 1;
+                int codDepartamento = cboxDepartamento.getSelectionModel().getSelectedIndex() + 1;
+                int codFamilia = cboxFamilia.getSelectionModel().getSelectedIndex() + 1;
+                int codMarca = cboxMarca.getSelectionModel().getSelectedIndex() + 1;
+                double precioVenta = Double.parseDouble(txtPrecioActual.getText());
+                // Asignar estos valores al nuevo artículo
+                nuevoArticulo.setDescripcion(descripcion);
+                nuevoArticulo.setCodigo(codigo);
+                nuevoArticulo.setCodigoBarra(codigoBarra);
+                nuevoArticulo.setPrecioVenta(precioVenta);
+                nuevoArticulo.setMargen(margen);
+                nuevoArticulo.setPrecioCosto(precioCosto);
+                nuevoArticulo.setStock(stock);
+                nuevoArticulo.setStockCritico(setStockCritico);
+                nuevoArticulo.setCodRubro(codRubro);
+                nuevoArticulo.setCodDepartamento(codDepartamento);
+                nuevoArticulo.setCodFamilia(codFamilia);
+                nuevoArticulo.setMarca(codMarca);
 
-            ArticuloDAO articuloDAO = new ArticuloDAOImpl();
-            boolean articuloGuardado = articuloDAO.crearArticulo(nuevoArticulo);
+                ArticuloDAO articuloDAO = new ArticuloDAOImpl();
+                boolean articuloGuardado = articuloDAO.crearArticulo(nuevoArticulo);
 
-            if (articuloGuardado) {
-                System.out.println("Artículo guardado exitosamente.");
-                cargarTabla();
-                TablaArticulos.refresh();
-                mostrarAlerta("Articulo Nuevo", "El articulo se cargo exitosamente!", Alert.AlertType.CONFIRMATION,false);
-               
-            } else {
-                System.out.println("Error al guardar el artículo.");
-            }
+                if (articuloGuardado) {
+                    System.out.println("Artículo guardado exitosamente.");
+                    cargarTabla();
+                    TablaArticulos.refresh();
+                    mostrarAlerta("Articulo Nuevo", "El articulo se cargo exitosamente!", Alert.AlertType.CONFIRMATION, false);
+
+                } else {
+                    System.out.println("Error al guardar el artículo.");
+                }
+            }//fin if confima nuevo
 
             limpiarDetalles();
 
