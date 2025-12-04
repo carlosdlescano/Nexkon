@@ -16,10 +16,34 @@ public class DetalleVenta {
     private int cantidad;
     private double precio;
     private Articulo articulo;
+    private String nombreArticulo;
 
     public DetalleVenta() {
     }
 
+    public DetalleVenta(int idVenta, int idCodArticulo, int cantidad, double precio) {
+        this.idVenta = idVenta;
+        this.idCodArticulo = idCodArticulo;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    public DetalleVenta(int idDetalle, int idVenta, int idCodArticulo, int cantidad, double precio, String nombreArticulo) {
+        this.idDetalle = idDetalle;
+        this.idVenta = idVenta;
+        this.idCodArticulo = idCodArticulo;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.nombreArticulo = nombreArticulo;
+    }
+
+    
+    public DetalleVenta(int idVenta, int idCodArticulo, double precio) {
+        this.idVenta = idVenta;
+        this.idCodArticulo = idCodArticulo;
+        this.precio = precio;
+    }
+ 
     public DetalleVenta(int idCodArticulo, int cantidad) {
         this.idCodArticulo = idCodArticulo;
         this.cantidad = cantidad;
@@ -30,6 +54,15 @@ public class DetalleVenta {
         this.articulo = articulo;
     }
 
+    public String getNombreArticulo() {
+        return nombreArticulo;
+    }
+
+    public void setNombreArticulo(String nombreArticulo) {
+        this.nombreArticulo = nombreArticulo;
+    }
+    
+    
     public Articulo getArticulo() {
         return articulo;
     }

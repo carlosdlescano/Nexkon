@@ -4,7 +4,7 @@
  */
 package com.minegocio.model;
 
-import java.math.BigDecimal;
+//import java.math.BigDecimal;
 
 /**
  *
@@ -63,6 +63,14 @@ public class Articulo {
         this.codigoBarra = codigoBarra;
     }
 
+    public Articulo(int idCodArticulo, int codigo, int marca, String descripcion) {
+        this.idCodArticulo = idCodArticulo;
+        this.codigo = codigo;
+        this.marca = marca;
+        this.descripcion = descripcion;
+    }
+
+    
     public int getStockCritico() {
         return StockCritico;
     }

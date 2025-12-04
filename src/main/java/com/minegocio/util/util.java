@@ -53,7 +53,23 @@ public class util {
             alert.showAndWait();
             return true; // solo para mantener el tipo boolean, aunque no importa
         }
+    }
 
+    public static ButtonType mostrarOpciones(
+            String titulo,
+            String mensaje,
+            Alert.AlertType tipo,
+            ButtonType... opciones) {
+
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+
+        alert.getButtonTypes().setAll(opciones); // ponemos los botones que queremos
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.orElse(ButtonType.CANCEL);
     }
 
 }

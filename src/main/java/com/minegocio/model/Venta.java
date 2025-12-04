@@ -16,9 +16,29 @@ public class Venta {
     private String cliente;
     private Timestamp fecha;
     private Double totalVenta;
+    private String medioPago;
 
     public Venta() {
     }
+
+    public Venta(int idventa, String cliente, Timestamp fecha, Double totalVenta, String medioPago) {
+        this.idventa = idventa;
+        this.cliente = cliente;
+        this.fecha = fecha;
+        this.totalVenta = totalVenta;
+        this.medioPago = medioPago;
+    }
+
+    
+    
+    public String getMedioPago() {
+        return medioPago;
+    }
+
+    public void setMedioPago(String medioPago) {
+        this.medioPago = medioPago;
+    }
+     
     
     public int getIdventa() {
         return idventa;

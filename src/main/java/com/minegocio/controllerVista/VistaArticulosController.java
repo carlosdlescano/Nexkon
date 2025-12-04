@@ -68,14 +68,15 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
     @FXML
     private TextField txtStockCritico;
 
-    @FXML
-    private ChoiceBox<String> cboxRubro;
+     
     @FXML
     private ChoiceBox<String> cboxDepartamento;
     @FXML
     private ChoiceBox<String> cboxFamilia;
     @FXML
     private ChoiceBox<String> cboxMarca;
+    @FXML
+    private ChoiceBox<String> cboxRubro;
 
     @FXML
     private Button btnGuardar;
@@ -223,11 +224,13 @@ public class VistaArticulosController implements Initializable, DatosCompartidos
         esEditado = true;
     }
 
+
     public void cancelarEdicion() {
         habilitarEdicion(false);
         limpiarDetalles();
 
     }
+
     @FXML
     public void guardarArticulo() {
         ArticuloDAO artdao = new ArticuloDAOImpl();

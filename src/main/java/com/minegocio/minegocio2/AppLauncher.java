@@ -4,11 +4,7 @@
  */
 package com.minegocio.minegocio2;
 
-import com.minegocio.DAO.ArticuloDAO;
-import com.minegocio.DaoImpl.ArticuloDAOImpl;
-import com.minegocio.model.Articulo;
-import java.util.ArrayList;
-
+import com.minegocio.services.StockService;
 
 /**
  *
@@ -18,6 +14,12 @@ public class AppLauncher {
 
     public static void main(String[] args) {
         App.main(args);
+        
+        new StockScheduler();
+        
+          // // se ejecuta al cerrar la app
+            //scheduler.shutdown();
+
         
         
     }

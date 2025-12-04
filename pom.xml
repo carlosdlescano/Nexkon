@@ -14,16 +14,27 @@
         <maven.compiler.release>23</maven.compiler.release>
         <javafx.version>23</javafx.version>
     </properties>
+    
+    <repositories>
+        
+    </repositories>
 
     <dependencies>
+        
+         <!-- Docx4j - librería para trabajar con archivos .docx -->
+        <dependency>
+            <groupId>org.docx4j</groupId>
+            <artifactId>docx4j</artifactId>
+            <version>6.1.2</version>
+        </dependency>
 
         <!-- SQL Server -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <version>12.6.1.jre11</version>
-        </dependency>
-
+        </dependency>        
+      
         <!-- JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -73,5 +84,5 @@
             </plugin>
         </plugins>
     </build>
-
+    <name>MiNegocio2</name>
 </project>

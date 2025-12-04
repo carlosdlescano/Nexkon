@@ -5,7 +5,9 @@
 package com.minegocio.DAO;
 
 import com.minegocio.model.DetalleVenta;
+import com.minegocio.model.Venta;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ import java.util.List;
 public interface VentaDAO {
     
     public boolean grabarVenta(String cliente, Timestamp fechaVenta, String medioPago, List<DetalleVenta> detalles);
+    public ArrayList<Venta> buscarVenta(Timestamp fechaInicio, Timestamp fechaFin, String cliente, String medioPago);
     
     
 }

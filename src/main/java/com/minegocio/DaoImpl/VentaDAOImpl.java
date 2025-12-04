@@ -8,12 +8,16 @@ import com.microsoft.sqlserver.jdbc.SQLServerCallableStatement;
 import com.microsoft.sqlserver.jdbc.SQLServerDataTable;
 import com.minegocio.DAO.VentaDAO;
 import com.minegocio.model.DetalleVenta;
+import com.minegocio.model.Venta;
 import com.minegocio.util.Conexion;
 import com.minegocio.util.util;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Alert;
 
@@ -29,10 +33,10 @@ public class VentaDAOImpl implements VentaDAO {
 
     public boolean grabarVenta(String cliente, Timestamp fechaVenta, String medioPago, List<DetalleVenta> detalles) {
         con = null;
-                
+
         try {
             con = Conexion.getConexion();
-            stmt = (SQLServerCallableStatement)con.prepareCall("{call sp_RegistrarVenta(?, ?, ?, ?)}");
+            stmt = (SQLServerCallableStatement) con.prepareCall("{call sp_RegistrarVenta(?, ?, ?, ?)}");
 
             stmt.setString(1, cliente);
             stmt.setTimestamp(2, fechaVenta);
@@ -50,7 +54,7 @@ public class VentaDAOImpl implements VentaDAO {
             stmt.execute();
             stmt.close();
             exito = true;
-        } catch(SQLException e)  {
+        } catch (SQLException e) {
             util.mostrarAlerta("Error al cargar la venta", e.getMessage(), Alert.AlertType.WARNING, false);
             System.out.println("Error al cargar la venta: " + e.getMessage());
         } finally {
@@ -67,6 +71,78 @@ public class VentaDAOImpl implements VentaDAO {
         }
         return exito;
     }
+    @Override
+    public ArrayList<Venta> buscarVenta(Timestamp fechaInicio, Timestamp fechaFin, String cliente, String medioPago) {
+        Connection con = null;
+        CallableStatement stmt = null;
+        ArrayList<Venta> lista = new ArrayList<>();
+
+        try {
+            con = Conexion.getConexion();
+            stmt = con.prepareCall("{call spBuscarVentaDinamico(?, ?, ?, ?)}");
+
+            // Parámetro 1: fechaDesde
+            if (fechaInicio != null) {
+                stmt.setTimestamp(1, fechaInicio);
+            } else {
+                stmt.setNull(1, Types.TIMESTAMP);
+            }
+
+            // Parámetro 2: fechaHasta
+            if (fechaFin != null) {
+                stmt.setTimestamp(2, fechaFin);
+            } else {
+                stmt.setNull(2, Types.TIMESTAMP);
+            }
+
+            // Parámetro 3: cliente
+            if (cliente != null && !cliente.isEmpty()) {
+                stmt.setString(3, cliente);
+            } else {
+                stmt.setNull(3, Types.VARCHAR);
+            }
+
+            // Parámetro 4: medioPago
+            if (medioPago != null && !medioPago.isEmpty()) {
+                stmt.setString(4, medioPago);
+            } else {
+                stmt.setNull(4, Types.VARCHAR);
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Venta v = new Venta(
+                        rs.getInt("idVenta"),
+                        rs.getString("cliente"),
+                        rs.getTimestamp("fechaVenta"),
+                        rs.getDouble("totalVenta"),
+                        rs.getString("medioPago")
+                );
+                lista.add(v);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return lista;
+    }
+    
+    public ArrayList<Venta> buscarVentaEntrefechas(Timestamp fechaInicio, Timestamp fechaFin) {
+        return buscarVenta(fechaInicio, fechaFin, null, null);
+    }
+    
 
 }
 
@@ -88,4 +164,3 @@ public class VentaControlador {
         }
     }
 }*/
-

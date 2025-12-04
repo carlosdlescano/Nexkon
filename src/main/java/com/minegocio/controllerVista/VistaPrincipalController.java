@@ -8,6 +8,7 @@ import com.minegocio.DAO.*;
 import com.minegocio.DaoImpl.*;
 import com.minegocio.model.*;
 import com.minegocio.util.DatosCompartidos;
+import com.minegocio.util.util;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -18,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import java.io.IOException;
 import java.util.List;
+import javafx.scene.control.Alert;
 
 /**
  * FXML Controller class
@@ -42,6 +44,8 @@ public class VistaPrincipalController implements Initializable {
         listaRubros = rub.ListarTodos();
         MarcaDAO mar = new MarcaDAOImpl();
         listaMarca = mar.ListarTodos();
+
+        
 
     }
     @FXML
@@ -74,9 +78,32 @@ public class VistaPrincipalController implements Initializable {
     private void abrirVistaVenta() {
         cargarVista("VistaPos.fxml");
     }
+
     @FXML
-    private void abrirVistaCompras(){
+    private void abrirVistaCompras() {
         cargarVista("VistaCompras.fxml");
     }
+
+    @FXML
+    private void abrirVistaReportes() {
+        cargarVista("ReporteVentasCompras.fxml");
+    }
+
+    @FXML
+    private void abrirNotificaciones() {
+        cargarVista("ConfiguracionNotificaciones.fxml");
+    }
+
+    @FXML
+    private void cerrarPrograma() {
+        // Obtiene el Stage desde el StackPane (o cualquier nodo de la escena)
+        boolean salir = util.mostrarAlerta("", "¿Esta seguro de salir del programa?", Alert.AlertType.CONFIRMATION, true);
+        if (salir) {
+            javafx.stage.Stage stage = (javafx.stage.Stage) ContenedorCentral.getScene().getWindow();
+            stage.close();
+        }
+    }
+
+    
 
 }

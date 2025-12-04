@@ -22,7 +22,7 @@
             <Button minHeight="70.0" mnemonicParsing="false" onAction="#abrirVistaArticulo" prefWidth="100.0" text="Articulos" VBox.vgrow="ALWAYS" />
             <Button minHeight="70.0" mnemonicParsing="false" onAction="#abrirVistaVenta" prefWidth="100.0" text="Ventas" />
             <Button minHeight="70.0" mnemonicParsing="false" onAction="#abrirVistaCompras" prefWidth="100.0" text="Compras" />
-            <Button minHeight="70.0" mnemonicParsing="false" prefWidth="100.0" text="Reportes" />
+            <Button fx:id="btnReportes" minHeight="70.0" mnemonicParsing="false" onAction="#abrirVistaReportes" prefWidth="100.0" text="Reportes" />
          </children>
          <BorderPane.margin>
             <Insets right="5.0" top="5.0" />
@@ -75,7 +75,7 @@
                           </items>
                         </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Salir" />
+                        <MenuItem mnemonicParsing="false" onAction="#cerrarPrograma" text="Salir" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Registro">
@@ -103,6 +103,7 @@
                           </items>
                         </Menu>
                         <MenuItem mnemonicParsing="false" text="Impresora" />
+                        <MenuItem mnemonicParsing="false" onAction="#abrirNotificaciones" text="Notificaciones" />
                         <Menu mnemonicParsing="false" text="seguridad">
                           <items>
                             <MenuItem mnemonicParsing="false" text="Usuarios" />

@@ -1,0 +1,111 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.minegocio.DaoImpl;
+
+import com.minegocio.DAO.DetalleVentaDAO;
+import com.minegocio.model.Articulo;
+import com.minegocio.model.DetalleVenta;
+import com.minegocio.util.Conexion;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import javafx.fxml.FXML;
+
+/**
+ *
+ * @author miNegocio
+ */
+public class DetalleVentaDAOImpl implements DetalleVentaDAO {
+
+    @Override
+    public ArrayList<DetalleVenta> buscarVenta(Integer idVenta, Integer idCodArticulo,Double precioMin,Double precioMax) {
+        Connection con = null;
+        CallableStatement stmt = null;
+        ArrayList<DetalleVenta> lista = new ArrayList<>();
+
+        try {
+            con = Conexion.getConexion();
+            stmt = con.prepareCall("{call spBuscarDetalleVentaDinamico(?, ?, ?, ?)}");
+
+            // Parámetro 1: idVenta
+            if (idVenta != null) {
+                stmt.setInt(1, idVenta);
+            } else {
+                stmt.setNull(1, Types.INTEGER);
+            }
+
+            // Parámetro 2: idCodArticulo
+            if (idCodArticulo != null) {
+                stmt.setInt(2, idCodArticulo);
+            } else {
+                stmt.setNull(2, Types.INTEGER);
+            }
+
+            // Parámetro 3: precioMin
+            if (precioMin != null) {
+                stmt.setDouble(3, precioMin);
+            } else {
+                stmt.setNull(3, Types.DECIMAL);
+            }
+
+            // Parámetro 4: precioMax
+            if (precioMax != null) {
+                stmt.setDouble(4, precioMax);
+            } else {
+                stmt.setNull(4, Types.DECIMAL);
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                // Construimos el objeto Articulo
+                Articulo art = new Articulo(
+                        rs.getInt("idCodArticulo"),
+                        rs.getInt("codigo"),
+                        rs.getInt("marca"),
+                        rs.getString("nombreArticulo") // alias de la descripción
+                );
+
+                // Construimos el objeto DetalleVenta
+                DetalleVenta d = new DetalleVenta(
+                        rs.getInt("idDetalle"),
+                        rs.getInt("idVenta"),
+                        rs.getInt("idCodArticulo"),
+                        rs.getInt("cantidad"),
+                        rs.getDouble("precioUnitario"),
+                        rs.getString("nombreArticulo")
+                );
+                //d.setNombreArticulo(rs.getString("nombreArticulo"));
+                lista.add(d);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return lista;
+    }
+    @FXML
+    public ArrayList<DetalleVenta> buscarVentaNro(Integer idVenta){
+        return buscarVenta(idVenta, null, null, null);               
+              
+    
+    }
+
+
+}
